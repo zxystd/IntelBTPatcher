@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F8BCA21925D0D04900E90A37 /* IntelBTPatcher.c in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA21825D0D04900E90A37 /* IntelBTPatcher.c */; };
+		F8BCA21925D0D04900E90A37 /* IntelBTPatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA21825D0D04900E90A37 /* IntelBTPatcher.cpp */; };
+		F8BCA23225D0E10C00E90A37 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8BCA23125D0E10C00E90A37 /* libkmod.a */; };
+		F8BCA23F25D0E21100E90A37 /* IntelBTPatcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F8BCA23E25D0E21100E90A37 /* IntelBTPatcher.hpp */; };
+		F8BCA25025D0EB2B00E90A37 /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA24F25D0EB2B00E90A37 /* plugin_start.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F8BCA21525D0D04900E90A37 /* IntelBTPatcher.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelBTPatcher.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8BCA21825D0D04900E90A37 /* IntelBTPatcher.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IntelBTPatcher.c; sourceTree = "<group>"; };
+		F8BCA21825D0D04900E90A37 /* IntelBTPatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IntelBTPatcher.cpp; sourceTree = "<group>"; };
 		F8BCA21A25D0D04900E90A37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8BCA23125D0E10C00E90A37 /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkmod.a; path = usr/lib/libkmod.a; sourceTree = SDKROOT; };
+		F8BCA23E25D0E21100E90A37 /* IntelBTPatcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IntelBTPatcher.hpp; sourceTree = "<group>"; };
+		F8BCA24F25D0EB2B00E90A37 /* plugin_start.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = plugin_start.cpp; path = Lilu.kext/Contents/Resources/Library/plugin_start.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8BCA23225D0E10C00E90A37 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30,8 +37,10 @@
 		F8BCA20B25D0D04900E90A37 = {
 			isa = PBXGroup;
 			children = (
+				F8BCA24F25D0EB2B00E90A37 /* plugin_start.cpp */,
 				F8BCA21725D0D04900E90A37 /* IntelBTPatcher */,
 				F8BCA21625D0D04900E90A37 /* Products */,
+				F8BCA23025D0E10C00E90A37 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,10 +55,19 @@
 		F8BCA21725D0D04900E90A37 /* IntelBTPatcher */ = {
 			isa = PBXGroup;
 			children = (
-				F8BCA21825D0D04900E90A37 /* IntelBTPatcher.c */,
+				F8BCA21825D0D04900E90A37 /* IntelBTPatcher.cpp */,
 				F8BCA21A25D0D04900E90A37 /* Info.plist */,
+				F8BCA23E25D0E21100E90A37 /* IntelBTPatcher.hpp */,
 			);
 			path = IntelBTPatcher;
+			sourceTree = "<group>";
+		};
+		F8BCA23025D0E10C00E90A37 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8BCA23125D0E10C00E90A37 /* libkmod.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,6 +77,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8BCA23F25D0E21100E90A37 /* IntelBTPatcher.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8BCA21925D0D04900E90A37 /* IntelBTPatcher.c in Sources */,
+				F8BCA21925D0D04900E90A37 /* IntelBTPatcher.cpp in Sources */,
+				F8BCA25025D0EB2B00E90A37 /* plugin_start.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,14 +270,33 @@
 		F8BCA21E25D0D04900E90A37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/Lilu.kext/Contents/Resources";
 				INFOPLIST_FILE = IntelBTPatcher/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = com.zxystd.IntelBTPatcher;
-				MODULE_START = IntelBTPatcher_start;
-				MODULE_STOP = IntelBTPatcher_stop;
+				MODULE_START = IntelBTPatcher_kern_start;
+				MODULE_STOP = IntelBTPatcher_kern_stop;
 				MODULE_VERSION = 1.0.0d1;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zxystd.IntelBTPatcher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -268,14 +307,31 @@
 		F8BCA21F25D0D04900E90A37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/Lilu.kext/Contents/Resources";
 				INFOPLIST_FILE = IntelBTPatcher/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = com.zxystd.IntelBTPatcher;
-				MODULE_START = IntelBTPatcher_start;
-				MODULE_STOP = IntelBTPatcher_stop;
+				MODULE_START = IntelBTPatcher_kern_start;
+				MODULE_STOP = IntelBTPatcher_kern_stop;
 				MODULE_VERSION = 1.0.0d1;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zxystd.IntelBTPatcher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
